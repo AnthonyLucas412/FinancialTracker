@@ -1,9 +1,6 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -93,8 +90,10 @@ public class FinancialTracker {
                 }
             }
             bufferedReader.close();
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Error loading inventory: " + e.getMessage());
+        } catch (IOException e) {
+
         }
 
     }
@@ -135,6 +134,19 @@ public class FinancialTracker {
             }
             Deposit deposit = new Deposit(dateTime, vendor, type, amount);
             transactions.add(deposit);
+
+            try {
+                FileWriter fileWriter = new FileWriter(FILE_NAME, true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+                bufferedWriter.write(dateTime.toLocalDate() + "|" + dateTime.toLocalTime()+ "|" + vendor + "|" + type + "|" + amount + "\n");
+                bufferedWriter.flush();
+                bufferedWriter.close();
+
+            } catch (IOException e) {
+                System.out.println("IOException occured!" + e.getMessage());
+            }
+
         System.out.println("The deposit was successful ");
 
     }
@@ -176,6 +188,21 @@ public class FinancialTracker {
         }
         Payment payment = new Payment(dateTime, vendor, type , cost);
         transactions.add(payment);
+
+        try {
+            FileWriter fileWriter = new FileWriter(FILE_NAME, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            bufferedWriter.write(dateTime.toLocalDate() + "|" + dateTime.toLocalTime()+ "|" + vendor + "|" + type + "|" + -cost + "\n");
+            bufferedWriter.flush();// flushes out anything thats not important then closes.
+            bufferedWriter.close();
+
+        } catch (IOException e) {
+
+            System.out.println("IOException occured!" + e.getMessage());
+        }
+
+
         System.out.println("Payment was added successfully!");
     }
 
@@ -225,7 +252,7 @@ public class FinancialTracker {
         System.out.printf("%-15s %-10s %-20s %-20s %s\n", "Date", "Time", "Type", "Vendor", "Amount"); // align output to the left (the reason for negative number) (if positive number it would display to right ) and specify the width for every item
         System.out.println("=========================================================================================================");
         for (Transaction transaction : transactions) {
-            System.out.printf("%-15s %-10s %-20s %-20s $%.2f\n", transaction.getDate(), transaction.getTime(), transaction.getType(), transaction.getVendor(), transaction.getPrice());
+            System.out.printf("%-15s %-10s %-20s %-20s $%.2f\n", transaction.getDate(), transaction.getTime(), transaction.getType(), transaction.getVendor(), transaction.getPrice());// .2f - only want 2 digits after the decimal.
         }
     }
 
