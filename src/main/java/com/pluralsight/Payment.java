@@ -1,19 +1,21 @@
 package com.pluralsight;
 
-
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-public class Deposit extends Transaction {
+public class Payment extends Transaction {
     private LocalDateTime dateTime;
     private String vendor;
     private String type;
     private double price;
 
-    public Deposit(LocalDateTime dateTime, String vendor, String type, double price) {
-        super(dateTime, vendor);
-        this.price = price;
+    public Payment(LocalDateTime dateTime, String vendor,String type, double price) {
+        super(dateTime.toLocalDate(), dateTime.toLocalTime(), vendor);
+        this.dateTime = dateTime;
         this.vendor = vendor;
         this.type = type;
+        this.price = -price;
     }
 
     @Override
@@ -30,18 +32,7 @@ public class Deposit extends Transaction {
         return vendor;
     }
 
-    @Override
     public double getPrice() {
         return price;
     }
-
-    @Override
-    public String toString() {
-        return "Deposit{" +
-                "dateTime=" + dateTime +
-                ", vendor='" + vendor + '\'' +
-                ", price=" + price +
-                '}';
-    }
 }
-
