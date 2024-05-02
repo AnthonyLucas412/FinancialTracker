@@ -24,9 +24,9 @@ public class FinancialTracker {
 
         int i = 1;
 
-        for (Transaction transaction: transactions) {
+        for (Transaction transaction : transactions) {
 
-            System.out.println(i +  ". Date: " + transaction.getDate() + " - " + transaction.getTime() + " - " + transaction.getType() + " - " + transaction.getVendor() + " - $" + transaction.getPrice());
+            System.out.println(i + ". Date: " + transaction.getDate() + " - " + transaction.getTime() + " - " + transaction.getType() + " - " + transaction.getVendor() + " - $" + transaction.getPrice());
             i++;
 
         }
@@ -126,35 +126,29 @@ public class FinancialTracker {
         double amount = Double.parseDouble(scanner.nextLine());
 
 
+        if (amount <= 0) {
+            System.out.println("Deposit must be a positive number ");
+            return;
 
-            if (amount <= 0) {
-                System.out.println("Deposit must be a positive number ");
-                return;
+        }
+        Deposit deposit = new Deposit(dateTime, vendor, type, amount);
+        transactions.add(deposit);
 
-            }
-            Deposit deposit = new Deposit(dateTime, vendor, type, amount);
-            transactions.add(deposit);
+        try {
+            FileWriter fileWriter = new FileWriter(FILE_NAME, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-            try {
-                FileWriter fileWriter = new FileWriter(FILE_NAME, true);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(dateTime.toLocalDate() + "|" + dateTime.toLocalTime() + "|" + vendor + "|" + type + "|" + amount + "\n");
+            bufferedWriter.flush();
+            bufferedWriter.close();
 
-                bufferedWriter.write(dateTime.toLocalDate() + "|" + dateTime.toLocalTime()+ "|" + vendor + "|" + type + "|" + amount + "\n");
-                bufferedWriter.flush();
-                bufferedWriter.close();
-
-            } catch (IOException e) {
-                System.out.println("IOException occured!" + e.getMessage());
-            }
+        } catch (IOException e) {
+            System.out.println("IOException occured!" + e.getMessage());
+        }
 
         System.out.println("The deposit was successful ");
 
     }
-
-
-
-
-
 
 
     private static void addPayment(Scanner scanner) {
@@ -186,14 +180,14 @@ public class FinancialTracker {
             System.out.println("Amount should be a positive not a negative ");
             return;
         }
-        Payment payment = new Payment(dateTime, vendor, type , cost);
+        Payment payment = new Payment(dateTime, vendor, type, cost);
         transactions.add(payment);
 
         try {
             FileWriter fileWriter = new FileWriter(FILE_NAME, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-            bufferedWriter.write(dateTime.toLocalDate() + "|" + dateTime.toLocalTime()+ "|" + vendor + "|" + type + "|" + -cost + "\n");
+            bufferedWriter.write(dateTime.toLocalDate() + "|" + dateTime.toLocalTime() + "|" + vendor + "|" + type + "|" + -cost + "\n");
             bufferedWriter.flush();// flushes out anything thats not important then closes.
             bufferedWriter.close();
 
@@ -205,8 +199,6 @@ public class FinancialTracker {
 
         System.out.println("Payment was added successfully!");
     }
-
-
 
 
     private static void ledgerMenu(Scanner scanner) {
@@ -265,7 +257,7 @@ public class FinancialTracker {
         System.out.printf("%-15s %-10s %-20s %-20s %s\n", "Date", "Time", "Type", "Vendor", "Amount"); // align output to the left and specify the width for every item
         System.out.println("=========================================================================================================");
         for (Transaction transaction : transactions) {
-            if(transaction instanceof Deposit){
+            if (transaction instanceof Deposit) {
                 System.out.printf("%-15s %-10s %-20s %-20s $%.2f\n", transaction.getDate(), transaction.getTime(), transaction.getType(), transaction.getVendor(), transaction.getPrice());
 
             }
@@ -281,7 +273,7 @@ public class FinancialTracker {
         System.out.printf("%-15s %-10s %-20s %-20s %s\n", "Date", "Time", "Type", "Vendor", "Amount"); // align output to the left and specify the width for every item
         System.out.println("=========================================================================================================");
         for (Transaction transaction : transactions) {
-            if(transaction instanceof Payment){
+            if (transaction instanceof Payment) {
                 System.out.printf("%-15s %-10s %-20s %-20s $%.2f\n", transaction.getDate(), transaction.getTime(), transaction.getType(), transaction.getVendor(), transaction.getPrice());
 
             }
@@ -302,46 +294,6 @@ public class FinancialTracker {
 
             String input = scanner.nextLine().trim();
 
-            switch (input) {
-                case "1":
-                    // Generate a report for all transactions within the current month,
-                    // including the date, vendor, and amount for each transaction.
-                case "2":
-                    // Generate a report for all transactions within the previous month,
-                    // including the date, vendor, and amount for each transaction.
-                case "3":
-                    // Generate a report for all transactions within the current year,
-                    // including the date, vendor, and amount for each transaction.
-
-                case "4":
-                    // Generate a report for all transactions within the previous year,
-                    // including the date, vendor, and amount for each transaction.
-                case "5":
-                    // Prompt the user to enter a vendor name, then generate a report for all transactions
-                    // with that vendor, including the date, vendor, and amount for each transaction.
-                case "0":
-                    running = false;
-                default:
-                    System.out.println("Invalid option");
-                    break;
-            }
         }
-    }
-
-
-    private static void filterTransactionsByDate(LocalDate startDate, LocalDate endDate) {
-        // This method filters the transactions by date and prints a report to the console.
-        // It takes two parameters: startDate and endDate, which represent the range of dates to filter by.
-        // The method loops through the transactions list and checks each transaction's date against the date range.
-        // Transactions that fall within the date range are printed to the console.
-        // If no transactions fall within the date range, the method prints a message indicating that there are no results.
-    }
-
-    private static void filterTransactionsByVendor(String vendor) {
-        // This method filters the transactions by vendor and prints a report to the console.
-        // It takes one parameter: vendor, which represents the name of the vendor to filter by.
-        // The method loops through the transactions list and checks each transaction's vendor name against the specified vendor name.
-        // Transactions with a matching vendor name are printed to the console.
-        // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
     }
 }
