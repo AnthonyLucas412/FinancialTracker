@@ -1,8 +1,14 @@
-# Project Title
+# Project Title Financial Tracker 
 
 ## Description of the Project
 
+To display transactions and show history of payments .
+
+
 Briefly describe what this Java console application does. Mention its purpose and who the intended users are. Explain the main functionality and what problems it aims to solve.
+
+The main reason for the financial tracker is to keep every deposit , payment, simply all transactions on file in order to keep track of fianances .
+
 
 ![Class Diagram](path/to/your/class_diagram.png)
 
@@ -10,12 +16,16 @@ Briefly describe what this Java console application does. Mention its purpose an
 
 List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
 
-- As a user, I want to be able to input my data, so that the application can process it accordingly.
-- As a user, I want to receive immediate feedback, so I can understand what to do next.
+As a user I would like to have a functionality that can read from my transactions file, so that I can track my expenses & incomes effectively.
+As a user, I want to be prompted to enter my deposit information in order to successfully make a deposit.
+As a user, I want to be prompted to enter my payment information in order to successfully make a payment.
+As a user I want to see a full menu of ways to make either deposit or payments , Also an option to view all transactions
 
 ## Setup
 
 Instructions on how to set up and run the project using IntelliJ IDEA.
+
+
 
 ### Prerequisites
 
