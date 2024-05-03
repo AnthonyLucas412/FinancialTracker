@@ -17,8 +17,11 @@ The main reason for the financial tracker is to keep every deposit , payment, si
 List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
 
 As a user I would like to have a functionality that can read from my transactions file, so that I can track my expenses & incomes effectively.
+
 As a user, I want to be prompted to enter my deposit information in order to successfully make a deposit.
+
 As a user, I want to be prompted to enter my payment information in order to successfully make a payment.
+
 As a user I want to see a full menu of ways to make either deposit or payments , Also an option to view all transactions
 
 ## Setup
